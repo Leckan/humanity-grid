@@ -1,0 +1,3 @@
+"use client";
+import { useState } from "react";
+export function SubmitForReview({slug}:{slug:string}){const[error,setError]=useState(""),[status,setStatus]=useState("");return <div>{status?<span className="success-note">Sent for review. It will be listed after approval.</span>:<><button className="btn small" onClick={async()=>{setError("");const r=await fetch(`/api/initiatives/${slug}/submit`,{method:"POST"});const data=await r.json().catch(()=>({}));if(!r.ok)setError(data.error||"Could not submit.");else setStatus("submitted");}}>Submit for review</button>{error&&<p className="error-text">{error}</p>}</>}</div>}
